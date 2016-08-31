@@ -23,6 +23,8 @@ var angularRangeslider = function(props){
     this.runAtStart = (typeof(props.runAtStart)!='undefined')?props.runAtStart:true;
     this.stopOnScopeChange = (typeof(props.stopOnScopeChange)!='undefined')?props.stopOnScopeChange:true;
     this.windowEnabled = (typeof(props.windowEnabled)!='undefined')?props.windowEnabled:true;
+    this.inputAttribute = (typeof(props.inputAttribute)!='undefined')?props.inputAttribute:'data-rangeslider';
+    
     
     if(this.windowEnabled)window.angularRangeslider = this;
 }
@@ -43,7 +45,7 @@ angularRangeslider.prototype= {
         });
     },
     initiateSlideWatch: function(){
-        $("input[data-rangeslider]").change(function (a) {
+        $("input["+this.inputAttribute+"]").change(function (a) {
             angularRangeslider.updateRangeModel(a.target);
         });
     },
@@ -52,12 +54,13 @@ angularRangeslider.prototype= {
         this.scope.$apply();
     },
     updateAllRangeModels: function(){
-        $("input[data-rangeslider]").change(function (a) {
+        $("input["+this.inputAttribute+"]").change(function (a) {
             angularRangeslider.updateRangeModel(a.target);
         });
     },
     reset: function(){
-        $("input[data-rangeslider]").off('change');
+        $("input["+this.inputAttribute+"]").off('change');
         $('input[type="range"]').rangeslider('destroy');
+        this.watching = false;
     }
 }
