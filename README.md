@@ -51,6 +51,15 @@ var sliderWatch = new ngRangeSlider({
 				});
     sliderWatch.start();
 
+
+    //To update models on slide, run the update function from the rangeslider onSlide function
+
+var rangeslider = $('[data-rangeslider]').rangeslider({
+    onSlide: function(){
+		angularRangeslider.updateRangeModel(this.$element[0])
+	}
+});
+
 ```
 
 This will begin watching all data-slider inputs and updates their value on `change()` .
@@ -82,6 +91,3 @@ You can use the following options when initialising the indicator:
 | Flag | Description |
 |--------|-------------|
 | watching | boolean value showing if the inputs are presently being watched for changes |
-
-
-
